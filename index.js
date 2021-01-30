@@ -126,7 +126,27 @@ message.channel.send(`${number[Response]}`)
           const command = require(join(__dirname, "commands", `${file}`));
           Client.commands.set(command.name, command);
         }
+        Client.on("message", async message => {
 
+          if(message.author.bot) return;
+          if(message.channel.type === 'dm') return;
+      
+          if(message.content.startsWith(prefix)) {
+              const args = message.content.slice(prefix.length).trim().split(/ +/);
+      
+              const command = args.shift().toLowerCase();
+      
+              if(!Client.commands.has(command)) return;
+      
+      
+              try {
+                  Client.commands.get(command).run(Client, message, args);
+      
+              } catch (error){
+                  console.error(error);
+              }
+          }
+      })
 
     
 
