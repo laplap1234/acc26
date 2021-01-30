@@ -53,8 +53,8 @@ const Response = Math.floor(Math.random() * number.length);
 message.channel.send(`${number[Response]}`)
 }
   if(message.content.startsWith("투표")) {
-      let args = message.content.split(" ") // ["!투표", "항목1/항목2/항목3", "시간(초)"]
-      let list = args[1].split("/") // ["항목1", "항목2", "항목3"]
+      let args = message.content.split(" ") 
+      let list = args[1].split("/") 
       let emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]
       let tempString = ""
       let temp = 0
@@ -85,11 +85,11 @@ message.channel.send(`${number[Response]}`)
       request(url, (error, response, body) => {
           let overview = JSON.parse(response.body).overview;
           overview = {
-              total_confirmed_person: overview.confirmed[0], // 총 확진자수
-              yesterday_confirmed_person: overview.confirmed[1], // 어제 확진자수
+              total_confirmed_person: overview.confirmed[0],
+              yesterday_confirmed_person: overview.confirmed[1], 
       
-              current_confirmed_person: overview.current[0], // 현재 확진자수
-              current_confirmed_person_diff: overview.current[1], // diff(어제 이 시간대 확진자 수 - 현재 이 시간대 확진자 수)
+              current_confirmed_person: overview.current[0], 
+              current_confirmed_person_diff: overview.current[1], 
           }
       
           let embed = new Discord.MessageEmbed()
@@ -100,7 +100,6 @@ message.channel.send(`${number[Response]}`)
           embed.addField(`대한민국 총 확진자 수`, `${overview.total_confirmed_person}명`, true)
           embed.addField(`어제 확진자 수`, overview.yesterday_confirmed_person + `명`, true)
           embed.addField(`오늘 확진자 수`, overview.current_confirmed_person + `명`, true)
-          // embed.addField(`오늘 어제지금시간   -   현재지금시간의 확진자`, overview.current_confirmed_person_diff + `명`, true)
           message.channel.send(embed)
       
         })
@@ -111,7 +110,7 @@ message.channel.send(`${number[Response]}`)
     }
     message.guild.channels.cache
       .get(message.channel.id)
-      .createInvite({ maxAge: 0 }) // maxAge: 0은 무한이라는 의미, maxAge부분을 지우면 24시간으로 설정됨
+      .createInvite({ maxAge: 0 }) 
       .then((invite) => {
         message.channel.send(invite.url)
       })
