@@ -120,7 +120,12 @@ message.channel.send(`${number[Response]}`)
         }
         
         
+        const commandFile = readdirSync(join(__dirname, "commands")).filter(file => file.endsWith("js"));
 
+        for (const file of commandFile) {
+          const command = require(join(__dirname, "commands", `${file}`));
+          Client.commands.set(command.name, command);
+        }
 
 
     
